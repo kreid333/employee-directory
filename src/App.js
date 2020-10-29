@@ -1,8 +1,8 @@
-import Jumbotron from "./components/Jumbotron/Jumbotron";
+import Home from "./views/Home/Home";
 
 function App() {
   return (
-    <Jumbotron />
+    <Home />
   );
 }
 
