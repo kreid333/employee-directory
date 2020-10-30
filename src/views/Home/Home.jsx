@@ -1,12 +1,25 @@
 import React from "react";
 import Jumbotron from "../../components/Jumbotron/Jumbotron";
 import Search from "../../components/Search/Search";
+import MainTable from "../../components/MainTable/MainTable";
 
 const Home = () => {
   return (
     <>
       <Jumbotron />
-      <Search />
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12">
+            <Search />
+          </div>
+        </div>
+        <br/>
+        <div className="row">
+          <div className="col-sm-12">
+            <MainTable />
+          </div>
+        </div>
+      </div>
     </>
   );
 };
