@@ -1,6 +1,5 @@
 import React from "react";
 import Jumbotron from "../../components/Jumbotron/Jumbotron";
-import Search from "../../components/Search/Search";
 import MainTable from "../../components/MainTable/MainTable";
 
 const Home = () => {
@@ -8,12 +7,6 @@ const Home = () => {
     <>
       <Jumbotron />
       <div className="container">
-        <div className="row">
-          <div className="col-sm-12">
-            <Search />
-          </div>
-        </div>
-        <br/>
         <div className="row">
           <div className="col-sm-12">
             <MainTable />
