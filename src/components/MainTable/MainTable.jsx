@@ -1,5 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
+import "./MainTable.css";
 
 const Table = () => {
   const [state, setState] = useState({
@@ -14,12 +15,34 @@ const Table = () => {
     });
   }, []);
 
+  const handleClick = () => {
+    const sortedData = state.user.sort(function (a, b) {
+      var nameA = a.name.first.toUpperCase();
+      var nameB = b.name.first.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+
+    setState({
+      user: sortedData,
+    });
+  };
+
   return (
     <table className="table">
       <thead>
         <tr>
           <th scope="col">Image</th>
-          <th scope="col">Name</th>
+          <th scope="col">
+            <span id="nameColumn" onClick={handleClick}>
+              Name
+            </span>
+          </th>
           <th scope="col">Email</th>
           <th scope="col">Phone</th>
           <th scope="col">DOB</th>
@@ -28,7 +51,7 @@ const Table = () => {
       <tbody>
         {state.user.map((user) => {
           return (
-            <tr>
+            <tr key={user.login.username}>
               <td>
                 <img src={user.picture.thumbnail} alt="userImage" />
               </td>
