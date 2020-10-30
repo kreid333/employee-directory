@@ -1,8 +1,21 @@
-import React from "react";
+import Axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const Table = () => {
+  const [state, setState] = useState({
+    user: [],
+  });
+
+  useEffect(() => {
+    Axios.get("https://randomuser.me/api/?results=10").then((response) => {
+      setState({
+        user: response.data.results,
+      });
+    });
+  }, []);
+
   return (
-    <table class="table">
+    <table className="table">
       <thead>
         <tr>
           <th scope="col">Image</th>
@@ -13,13 +26,27 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Image</td>
-          <td>Mark</td>
-          <td>mark@gmail.com</td>
-          <td>678-200-4931</td>
-          <td>09/24/89</td>
-        </tr>
+        {state.user.map((user) => {
+          return (
+            <tr>
+              <td>
+                <img src={user.picture.thumbnail} alt="userImage" />
+              </td>
+              <td>
+                <p>{user.name.first + " " + user.name.last}</p>
+              </td>
+              <td>
+                <p>{user.email}</p>
+              </td>
+              <td>
+                <p>{user.phone}</p>
+              </td>
+              <td>
+                <p>{user.dob.date.slice(0, 10)}</p>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
