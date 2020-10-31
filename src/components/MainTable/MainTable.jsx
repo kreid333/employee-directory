@@ -5,6 +5,7 @@ import "./MainTable.css";
 const Table = () => {
   const [state, setState] = useState({
     user: [],
+    search: "",
   });
 
   useEffect(() => {
@@ -33,12 +34,38 @@ const Table = () => {
     });
   };
 
+  const handleInputChange = (event) => {
+    const { value } = event.target;
+    setState({
+      ...state,
+      search: value,
+    });
+  };
+
+  const filteredSearch = state.user.filter((user) => {
+    return user.name.first.indexOf(state.search) !== -1;
+  });
+
+  const displayedUsers = function() {
+    if (state.search) {
+      return filteredSearch;
+    } else {
+      return state.user;
+    }
+  }
+
   return (
     <>
       <div className="text-center">
-        <input type="text" name="employee" placeholder="Search" />
+        <input
+          type="text"
+          name="employee"
+          value={state.search}
+          placeholder="Search"
+          onChange={handleInputChange}
+        />
       </div>
-      <br/>
+      <br />
       <table className="table">
         <thead>
           <tr>
@@ -54,7 +81,7 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {state.user.map((user) => {
+          {displayedUsers().map((user) => {
             return (
               <tr key={user.login.username}>
                 <td>
@@ -82,15 +109,3 @@ const Table = () => {
 };
 
 export default Table;
-
-// const handleInputChange = () => {
-//   state.user.filter(() => {
-//     return;
-//   });
-// };
-// return (
-//   <div className="text-center">
-//     <input type="text" name="employee" placeholder="Search" />
-//   </div>
-// );
-// };
